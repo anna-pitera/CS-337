@@ -8,16 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
-    let model = CollegeModel()
-    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView {
+            Tab("Summary", systemImage: "book") {
+                CollegeSummaryView()
+            }
+            Tab ("Colleges", systemImage: "tree") {
+                CollegeListView()
+            }
+            Tab ("Map", systemImage: "mappin.and.ellipse") {
+                MapView()
+            }
         }
-        .padding()
     }
 }
 
