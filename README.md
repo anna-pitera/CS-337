@@ -50,3 +50,23 @@ In my design of this app, I created one main class `WeatherModel` to contain the
 8. Extract each day of the week's `DailyForecast` from `decoded` and append it to `days`, which is then used to create a `Forecast` struct
 10. Return a `WeatherData` object containing the aforementioned `CurrentWeather` and `Forecast` structs
 
+## App UI
+### Views
+| View | Purpose |
+| :-------------: | ------------- | 
+| `SearchView` | Displays a search bar, which uses a `search()` function to position the map's perspective after a `searchString` is submitted |
+| `MapView` | Displays a `Map` view with various `VStack` and `HStack` views overlaid to hold the `TempView` and `DetailButtonView` views |
+| `TempView` | Displays a `Text` view to show a quick representation of the current location's temperature at this exact moment |
+| `DetailButtonView` | Displays a tappable `Text` view with an icon, which the user can tap to navigate to the `DetailView` view |
+| `DetailView` | Displays a `List` view with various `VStack` and `HStack` views in `Section` views corresponding to the current weather data and the week's forecasted weather data (using the `forecastTable()` function to create a `Grid` view with `GridRow` structs highlighting the week's daily high and low temperatures) |
+
+### ViewModel
+`WeatherViewModel` contains three functions:
+1. `useCurrentLocation()` is used for displaying the user's current location before they submit a location as a `searchString` (e.g. when the app first loads and the user has not searched for any location yet)
+    - This function checks if `hasSelectedLocation` is true or false to determine if the user's current immediate location should be used
+3. `handleSearchSubmit()` is used when the user submits a `searchString` in the search bar, making sure to validate the `searchString` the user enters as a proper location
+    - If the user's entered `searchString` is valid, the search bar is reset so that the user can enter the next location faster and more conveniently
+    - If the user's entered `searchString` is invalid (e.g. if it would not return a valid set of coordinates using the `Geocoder`), the search bar is not reset, which gives the user room to fix any accidental typos in the `searchString` they entered
+4. `select()` is used when the user has selected a location on the map (`hasSelectedLocation = true`) in order to get the corresponding weather data
+    - This function also uses `async` and `await` to wait for the `Geocoder` to complete the `getPlaceName()` function, which reverse-geocodes the location's coordinates into the more commonplace name of the location (e.g. "West Long Branch, New Jersey")
+    - The `getPlaceName()` function's result is then used in the `DetailView` view to display the currently selected location in a more user-friendly way
