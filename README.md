@@ -1,4 +1,7 @@
 # Weather App [CS-337-01]
+<img width="256" height="256" alt="weatherappicon" src="https://github.com/user-attachments/assets/d11e213a-03f1-44a5-912f-1cef20458b45"/>
+
+## Applied Concepts
 This weather app project implements a number of iOS app development features as follows:
 | Package  | Implementation |
 | :-------------: | ------------- |
